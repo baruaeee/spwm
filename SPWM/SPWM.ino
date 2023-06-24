@@ -26,14 +26,14 @@ void loop() {
   lcd.setCursor(9, 1);
   lcd.print(String(step*1000) + "ms");
   double wMid[Res];
-  double delayHigh[Res];
-  double delayLow[Res];
+  int delayHigh[Res];
+  int delayLow[Res];
   double x=step/2;
   for(int i=0; i<Res; i++){
     wMid[i] = x;
-    delayHigh[i] = step * sin(2*3.1416*F*x);
-    delayLow[i] = (step/2) - (delayHigh[i]/2);
-    Serial.println("Delay-Low: " + String(delayLow[i]*1000000) + "uS DelayHigh: " + String(delayHigh[i]*1000000) + "uS");
+    delayHigh[i] = ((step * sin(2*3.1416*F*x))*1000000);
+    delayLow[i] = (((step/2)*1000000) - (delayHigh[i]/2));
+    Serial.println("Delay-Low: " + String(delayLow[i]) + "uS DelayHigh: " + String(delayHigh[i]) + "uS");
     x += step;
   }
 
@@ -54,23 +54,12 @@ void loop() {
   */
   while(checkButton()==' '){
     for(int i =0; i<Res; i++){
-      delayMicroseconds(delayLow[i]*1000000);
-      digitalWrite(3, HIGH);
-      delayMicroseconds(delayHigh[i]*1000000);
-      digitalWrite(3, LOW);
-      delayMicroseconds(delayLow[i]*1000000);
-
-
-      //delayMicroseconds(5000);
-
-
-      //delayMicroseconds(delayLow[i]*1000000);
       //digitalWrite(3, LOW);
-      //delayMicroseconds(delayHigh[i]*1000000);
-      //digitalWrite(3, HIGH);
-      //delayMicroseconds(delayLow[i]*1000000);
-
-      //delayMicroseconds(5000);
+      delayMicroseconds(delayLow[i]);
+      digitalWrite(3, HIGH);
+      delayMicroseconds(delayHigh[i]);
+      digitalWrite(3, LOW);
+      delayMicroseconds(delayLow[i]);
     }
   }
   //while(checkButton()==' ');
