@@ -5,14 +5,15 @@ LiquidCrystal lcd( 8,  9, 4, 5, 6, 7);
 
 int menu = 1;
 int F = 50;
-int Res = 5;
+int Res = 10;
 
 void setup() {
   lcd.begin(16, 2);
   lcd.print("LCD Ready!");
   Serial.begin(9600);
   Serial.println("Serial Ready");
-  pinMode(3, OUTPUT);
+  pinMode(13, OUTPUT);
+  pinMode(12, OUTPUT);
 }
 
 void loop() {
@@ -54,20 +55,26 @@ void loop() {
   */
   while(checkButton()==' '){
     for(int i =0; i<Res; i++){
-      digitalWrite(3, LOW);
+      digitalWrite(13, LOW);
+      digitalWrite(12, HIGH);
       delayMicroseconds(delayLow[i]);
-      digitalWrite(3, HIGH);
+      digitalWrite(13, HIGH);
+      digitalWrite(12, LOW);
       delayMicroseconds(delayHigh[i]);
-      digitalWrite(3, LOW);
+      digitalWrite(13, LOW);
+      digitalWrite(12, HIGH);
       delayMicroseconds(delayLow[i]);
     }
 
     for(int i =0; i<Res; i++){
-      digitalWrite(3, HIGH);
+      digitalWrite(13, HIGH);
+      digitalWrite(12, LOW);
       delayMicroseconds(delayLow[i]);
-      digitalWrite(3, LOW);
+      digitalWrite(13, LOW);
+      digitalWrite(12, HIGH);
       delayMicroseconds(delayHigh[i]);
-      digitalWrite(3, HIGH);
+      digitalWrite(13, HIGH);
+      digitalWrite(12, LOW);
       delayMicroseconds(delayLow[i]);
     }
   }
