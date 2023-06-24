@@ -54,11 +54,20 @@ void loop() {
   */
   while(checkButton()==' '){
     for(int i =0; i<Res; i++){
-      //digitalWrite(3, LOW);
+      digitalWrite(3, LOW);
       delayMicroseconds(delayLow[i]);
       digitalWrite(3, HIGH);
       delayMicroseconds(delayHigh[i]);
       digitalWrite(3, LOW);
+      delayMicroseconds(delayLow[i]);
+    }
+
+    for(int i =0; i<Res; i++){
+      digitalWrite(3, HIGH);
+      delayMicroseconds(delayLow[i]);
+      digitalWrite(3, LOW);
+      delayMicroseconds(delayHigh[i]);
+      digitalWrite(3, HIGH);
       delayMicroseconds(delayLow[i]);
     }
   }
